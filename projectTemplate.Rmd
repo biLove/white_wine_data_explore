@@ -51,6 +51,7 @@ summary(white_wine)
 table(white_wine$quality)
 qplot(x = quality, data = white_wine)
 ```
+    
 从图中可以看出，本数据集的质量范围在 3~9 之间，其中质量为5，6的数量最多。    
 从每种质量分布的个数来看，基本属于正态分布，虽然并不标准。其中峰值为 quality=6.    
 
@@ -63,6 +64,7 @@ ggplot(aes(x = volatile.acidity), data = white_wine) +
 ggplot(aes(x = citric.acid), data = white_wine) + 
   geom_histogram(binwidth = 0.01)
 ```
+    
 大部分 fixed.acidity 的含量在 5~9之间，其中峰值在 6~7 之间， fixed.acidity 的分布基本属于正态分布，存在一些异常值。   
 去掉 fixed.acidity 大于10的部分，可以看到， fixed.acidity 的分布基本呈现正态分布。   
 
@@ -78,6 +80,7 @@ ggplot(aes(x = residual.sugar), data = white_wine) +
   geom_histogram(binwidth = 0.05) + 
   scale_x_log10()
 ```
+    
 residual.sugar 是正偏斜分布，由于大部分的 residual.sugar 在0~20之间。    
 将 residual.sugar 取log10，可以得到一个双峰分布，如上图所示。   
 
@@ -85,6 +88,7 @@ residual.sugar 是正偏斜分布，由于大部分的 residual.sugar 在0~20之
 qplot(x = free.sulfur.dioxide, data = white_wine)
 qplot(x = total.sulfur.dioxide, data = white_wine)
 ```
+     
 绝大部分的 free.sulfur.dioxide 的值分布在0~100之间， 绝大部分的 total.sulfur.dioxide 值分布在 50~250 之间。    
 去掉 free.sulfur.dioxide 和 total.sulfur.dioxide 中的比较高的异常值。    
 
@@ -96,6 +100,7 @@ ggplot(aes(x = total.sulfur.dioxide), data = white_wine) +
   geom_histogram(binwidth = 1) + 
   xlim(0,270)
 ```
+     
 从上图可以看出，free.sulfur.dioxide 和 total.sulfur.dioxide的分布都很均匀。
 
 ```{r echo=FALSE}
@@ -104,12 +109,15 @@ ggplot(aes(x = chlorides), data = white_wine) +
 ggplot(aes(x = sulphates), data = white_wine) + 
   geom_histogram(binwidth = 0.01)
 ```
-sulphates的分布比较均匀，但chlorides的分布大部分在0.0~0.1之间，去掉chlorides中异常值，如下：
+     
+sulphates的分布比较均匀，但chlorides的分布大部分在0.0~0.1之间，去掉chlorides中异常值，如下：    
+
 ```{r echo=FALSE}
 ggplot(aes(x = chlorides), data = white_wine) + 
   geom_histogram(binwidth = 0.005) + 
   xlim(0.0,0.1)
 ```
+     
 去掉以后，chlorides大致呈现正态分布。
 
 ```{r echo=FALSE}
@@ -120,6 +128,7 @@ ggplot(aes(x = density), data = white_wine) +
 ggplot(aes(x = alcohol), data = white_wine) + 
   geom_histogram(binwidth = 0.1)
 ```
+     
 pH的分布大致呈现正态分布。    
 density分布大部分在0.997~1.002的范围内   
 alcohol呈现偏右斜分布。    
@@ -128,7 +137,9 @@ ggplot(aes(x = density), data = white_wine) +
   geom_histogram(binwidth = 0.0001) + 
   xlim(0.997,1.002)
 ```
-查看alcohol的统计数据如下：
+     
+查看alcohol的统计数据如下：    
+
 ```{r  echo=FALSE}
 summary(white_wine$alcohol)
 ```
@@ -154,16 +165,20 @@ density 单位为(mg / cm^3)，
 pH   
 这11个变量均为连续变量   
 变量quality表示白葡萄酒的质量，由至少3名葡萄酒专家对每种酒的质量进行评分，分数在0（非常差）和10（非常好）之间。
-
+    
+     
 ### 数据集的主要特征是什么?
 数据集的主要特征应该是酒精度数 alcohol 和 quality。       
-
+      
+      
 ### 数据集中哪些特征对于你的研究目的可能有帮助？   
 pH、residual.sugar、total.sulfur.dioxide以及其他特征对我的研究可能有用。还需要后续具体查看。
-
+     
+     
 ### 你是否根据现有变量创建了新的变量？   
 目前，根据3种酸，计算了新变量 acid，表示3种酸的总和。   
-
+     
+     
 ### 你研究的变量是否有不寻常的分布? 你是否对数据进行了整理、调整或者更改数据的形式?如果有的话，描述一下你为什么要这样操作？ 
 新变量 acid 没有不寻常的分布，由于 fixed.acidity 的值比 volatile.acidity 和 citric.acid 大很多，将三者相加以后，主要是由 fixed.acidity 的值起作用，故而 acid 的分布整体与 fixed.acidity 的分布一致。   
 
@@ -185,6 +200,7 @@ white_wine_subset <- white_wine[,c(2:13)]
 names(white_wine_subset)
 ggpairs(white_wine_subset[sample.int(nrow(white_wine_subset), 1000), ])
 ```
+     
 从上述相关表中可以看出，   
 residual.sugar 与 density 相关度最高：0.84；   
 free.sulfur.dioxide 和 total.sulfur.dioxide 相关度为：0.62
@@ -209,6 +225,7 @@ ggplot(aes(x = quality, y = alcohol),
   stat_summary(fun.y = mean, geom = 'point', shape = 4) + 
   ylim(9,13)
 ```
+     
 从图中可以看出，当quality为5的时候，异常值较多，而且 quality 与 alcohol 的变化趋势为， 随着quality的增加，alcohol的度数先增加，后减少，在quality=5是为最低。   
 
 
@@ -239,6 +256,7 @@ ggplot(aes(x = quality, y = pH),
   geom_boxplot() + 
   stat_summary(fun.y = mean, geom = 'point', shape = 4)
 ```
+    
 从上图可以看出，大部分的 citric.acid 含量在0.2~0.4之间，很难找到citric.acid 与 quality的相关关系 。
 
 ### 探索 residual.sugar 和 density 的关系   
@@ -255,6 +273,7 @@ ggplot(aes(x = residual.sugar, y = density),
   scale_x_continuous(limits = c(0,20)) + 
   geom_smooth()
 ```
+     
 从图中可以看出，residual.sugar 和 density 呈正相关关系   
 
 ### 探索 total.sulfur.dioxide  和 density 的关系   
@@ -270,6 +289,7 @@ ggplot(aes(x = total.sulfur.dioxide, y = density),
   scale_x_continuous(limits = c(0,250)) + 
   geom_smooth()
 ```
+     
 从图中可以看出，total.sulfur.dioxide  和 density 呈现正相关关系。
 
 ### 探索 alcohol   和 density 的关系   
@@ -280,6 +300,7 @@ ggplot(aes(x = alcohol , y = density),
   geom_jitter(alpha=1/10)  + 
   geom_smooth()
 ```
+     
 从上图可以看出，alcohol 与 density 之间，呈现明显的负相关关系
 
 ### 探索 alcohol 和  total.sulfur.dioxide 的关系   
@@ -294,6 +315,7 @@ ggplot(aes(x = total.sulfur.dioxide, y = alcohol), data = white_wine) +
   scale_x_continuous(limits = c(50,250)) + 
   geom_smooth()
 ```
+    
 从图中可以看出，当 total.sulfur.dioxide 增加时，alcohol 整体呈现下降趋势。    
 
 
@@ -308,6 +330,7 @@ ggplot(aes(x = fixed.acidity, y = pH), data = white_wine) +
   scale_x_continuous(limits = c(5,10)) + 
   geom_line(stat = "summary", fun.y = mean, color = '#7F4534')
 ```
+     
 从图中可以看出，fixed.acidity 的值越高，pH的值越低。   
 
 
@@ -357,6 +380,7 @@ ggplot(aes(x = alcohol, y = quality),
        data=subset(white_wine, residual.sugar <22)) + 
   geom_jitter(aes(color = residual.sugar))
 ```
+    
 从上图中可以看出，颜色整体上是从左上角往右下角逐步加深的，也就是当 residual.sugar 一致时，酒的度数 alcohol 越高，quality 质量越高。     
 相反，当 alcohol 一致时，可以发现颜色整体上也是是从左上角往右下角逐步加深的，这时，residual.sugar 越高， quality 也越高。
 说明 alcohol 和 residual.sugar 是相互加强的关系。    
@@ -372,6 +396,7 @@ ggplot(aes(x = alcohol,y = quality, color = total.sulfur.dioxide),
        data = white_wine) + 
   geom_jitter() 
 ```
+     
 从图中整体分析可知，颜色是从左上角到右下角逐步加深的，也就是说，当 total.sulfur.dioxide 一致时，alcohol 越高，quality 越好 。
 当 alcohol 保持一致时， total.sulfur.dioxide 与 quality 关系并不明确，故 total.sulfur.dioxide 与 alcohol 并不是相互加强的关系。
 

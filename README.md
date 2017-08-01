@@ -8,3 +8,5 @@
 1. 本项目采用了多种方式对数据集进行了探索，适当使用了单变量、双变量和多变量图来探索数据集中大多数预期的关系。   
 2. 本项目记录了探索过程中发现的问题，以及思考的原因.
 
+# 项目展示
+http://lilyalove.com/white_wine_data_explore/projectTemplate.html
